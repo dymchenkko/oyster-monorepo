@@ -1,7 +1,8 @@
 use clap::Parser;
 use methods::{GUEST_ELF, GUEST_ID};
 use risc0_zkvm::{default_prover, ExecutorEnv, ProverOpts};
-
+use std::fs::File;
+use std::io::Read;
 #[derive(Parser, Debug)]
 #[command(author, version, about, long_about = None)]
 struct Args {
@@ -19,16 +20,9 @@ fn main() {
         hex::encode(GUEST_ID.map(u32::to_le_bytes).as_flattened())
     );
 
-    let args = Args::parse();
-
-    // Query attestation from the given url
+    let mut attestation_file = File::open("doc").unwrap();
     let mut attestation = Vec::new();
-    ureq::get(&args.url)
-        .call()
-        .unwrap()
-        .into_reader()
-        .read_to_end(&mut attestation)
-        .unwrap();
+    attestation_file.read_to_end(&mut attestation).unwrap();
 
     println!("Attestation size: {}", attestation.len());
 

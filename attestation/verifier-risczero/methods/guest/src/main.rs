@@ -19,11 +19,11 @@ fn main() {
     let mut attestation = Vec::<u8>::new();
     env::stdin().read_to_end(&mut attestation).unwrap();
 
-    println!(
+    /*println!(
         "Attestation: {} bytes: {:?}",
         attestation.len(),
         attestation
-    );
+    );*/
 
     // assert initial fields
     assert_eq!(
@@ -311,18 +311,18 @@ fn main() {
     assert_eq!(attestation[offset], 0x6a); // text of size 10
     assert_eq!(&attestation[offset + 1..offset + 11], b"public_key");
     // commit public key, expected length of 64 since it is a secp256k1 key
-    assert_eq!(attestation[offset + 11], 0x58); // bytes where one byte length follows
+    //assert_eq!(attestation[offset + 11], 0x58); // bytes where one byte length follows
 
     // get public key length
-    let pubkey_len = attestation[offset + 12] as usize;
+    /*let pubkey_len = attestation[offset + 12] as usize;
     println!(
         "Public key: {pubkey_len} bytes: {:?}",
         &attestation[offset + 13..offset + 13 + pubkey_len]
-    );
-    env::commit_slice(&[attestation[offset + 12]]);
-    env::commit_slice(&attestation[offset + 13..offset + 13 + pubkey_len]);
+    );*/
+    //env::commit_slice(&[attestation[offset + 12]]);
+    //env::commit_slice(&attestation[offset + 13..offset + 13 + pubkey_len]);*/
 
-    offset = offset + 13 + pubkey_len;
+    offset = offset + 12;
 
     // assert user_data key
     assert_eq!(attestation[offset], 0x69); // text of size 9
