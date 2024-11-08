@@ -34,10 +34,10 @@ fn main() {
     let prover = default_prover();
     // Enable groth16
     let prove_info = prover
-        .prove_with_opts(env, GUEST_ELF, &ProverOpts::groth16())
+        .prove_with_opts(env, GUEST_ELF, &ProverOpts::default())
         .unwrap();
 
     let receipt = prove_info.receipt;
 
-    println!("{:?}", receipt);
+    //println!("{:?}", receipt);
 }

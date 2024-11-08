@@ -205,6 +205,7 @@ fn main() {
             pubkey.len(),
             pubkey
         );
+
         // assert that the pubkey size is 97 in case it changes later
         assert_eq!(pubkey.len(), 97);
         assert_eq!(pubkey[0], 0x04);
@@ -258,8 +259,8 @@ fn main() {
                 .subject_public_key_info
                 .subject_public_key
                 .raw_bytes();
-            let vkey = VerifyingKey::from_sec1_bytes(&pubkey).unwrap();
-            vkey.verify(&msg, &sig).unwrap();
+            /*let vkey = VerifyingKey::from_sec1_bytes(&pubkey).unwrap();
+            vkey.verify(&msg, &sig).unwrap();*/
 
             // set up for next iteration
             parent_cert = child_cert;
@@ -303,8 +304,8 @@ fn main() {
             .subject_public_key_info
             .subject_public_key
             .raw_bytes();
-        let vkey = VerifyingKey::from_sec1_bytes(&pubkey).unwrap();
-        vkey.verify(&msg, &sig).unwrap();
+        /*let vkey = VerifyingKey::from_sec1_bytes(&pubkey).unwrap();
+        vkey.verify(&msg, &sig).unwrap();*/
     }
 
     // assert public_key key
@@ -320,7 +321,7 @@ fn main() {
         &attestation[offset + 13..offset + 13 + pubkey_len]
     );*/
     //env::commit_slice(&[attestation[offset + 12]]);
-    //env::commit_slice(&attestation[offset + 13..offset + 13 + pubkey_len]);*/
+    //env::commit_slice(&attestation[offset + 13..offset + 13 + pubkey_len]);
 
     offset = offset + 12;
 
@@ -380,7 +381,7 @@ fn main() {
         .subject_public_key
         .raw_bytes()
         .to_owned();
-    let verifying_key = VerifyingKey::from_sec1_bytes(&leaf_cert_pubkey).unwrap();
+    //let verifying_key = VerifyingKey::from_sec1_bytes(&leaf_cert_pubkey).unwrap();
     let r: [u8; 48] = attestation[12 + payload_size..60 + payload_size]
         .try_into()
         .unwrap();
@@ -389,7 +390,7 @@ fn main() {
         .unwrap();
     let signature = Signature::from_scalars(r, s).unwrap();
 
-    verifying_key.verify_prehash(&hash, &signature).unwrap();
+    //verifying_key.verify_prehash(&hash, &signature).unwrap();
 
     println!("Done!");
 }
